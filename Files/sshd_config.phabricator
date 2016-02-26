@@ -5,6 +5,7 @@
 
 AuthorizedKeysCommand /etc/ssh/phabricator-ssh-hook.sh
 AuthorizedKeysCommandUser git
+AllowUsers git
 
 # You may need to tweak these options, but mostly they just turn off everything
 # dangerous.
