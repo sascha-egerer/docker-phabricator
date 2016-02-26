@@ -24,6 +24,9 @@ trap "postfix reload" SIGHUP
 # force new copy of hosts there (otherwise links could be outdated)
 cp /etc/hosts /var/spool/postfix/etc/hosts
 
+postconf -e mydestination="`hostname`, localhost.localdomain, localhost"
+postconf -e myhostname=`hostname`
+
 # start postfix
 postfix start
 
