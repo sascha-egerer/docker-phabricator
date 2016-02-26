@@ -27,12 +27,14 @@ COPY Files/supervisor.conf.d/* /etc/supervisor/conf.d/
 
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr --with-freetype-dir=/usr && \
     docker-php-ext-install gd mysqli mbstring iconv curl pcntl fileinfo json posix ctype zip sockets opcache && \
-    useradd -G www-data git && \
+    useradd -G www-data -s /bin/bash git && \
     touch /var/log/aphlict.log && \
     chown git:www-data /var/log/aphlict.log && \
     npm install -g ws && \
     mkdir /var/run/sshd && \
-    chmod +x /Scripts/*.sh /etc/ssh/phabricator-ssh-hook.sh && \
+    chmod +x /Scripts/*.sh && \
+    chmod 550 /etc/ssh/phabricator-ssh-hook.sh && \
+    chown root:git /etc/ssh/phabricator-ssh-hook.sh && \
     mkdir /opt/phabricator && \
     cd /opt/phabricator && \
     git clone git://github.com/facebook/libphutil.git && \
