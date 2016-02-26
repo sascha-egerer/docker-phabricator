@@ -36,6 +36,7 @@ RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr --with-
     chmod +x /Scripts/*.sh && \
     chmod 550 /etc/ssh/phabricator-ssh-hook.sh && \
     chown root:git /etc/ssh/phabricator-ssh-hook.sh && \
+    echo "git ALL=(git) SETENV: NOPASSWD: /usr/bin/git-upload-pack, /usr/bin/git-receive-pack, /usr/bin/svnserve" >> /etc/sudoers && \
     mkdir /opt/phabricator && \
     cd /opt/phabricator && \
     git clone git://github.com/facebook/libphutil.git && \

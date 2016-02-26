@@ -20,7 +20,7 @@ ${PHABRICATOR_DIR}/bin/phd start
 sleep 1
 
 # wait until phd is dead (triggered by trap)
-while `${PHABRICATOR_DIR}/bin/phd status >> /dev/null`
+while `${PHABRICATOR_DIR}/bin/phd status --local >> /dev/null`
 do
     sleep 5
 done
