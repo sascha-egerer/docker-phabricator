@@ -8,4 +8,4 @@ then
   exit 1
 fi
 
-exec "$PHABRICATOR_DIR/bin/ssh-auth" $@
+exec "/opt/phabricator/phabricator/bin/ssh-auth" $@
