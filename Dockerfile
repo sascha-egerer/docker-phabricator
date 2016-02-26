@@ -27,7 +27,8 @@ COPY Files/supervisor.conf.d/* /etc/supervisor/conf.d/
 
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr --with-freetype-dir=/usr && \
     docker-php-ext-install gd mysqli mbstring iconv curl pcntl fileinfo json posix ctype zip sockets opcache && \
-    useradd -G www-data -s /bin/bash git && \
+    useradd -G www-data -s /bin/bash -d /opt/phabricator git && \
+    passwd -d git && \
     touch /var/log/aphlict.log && \
     chown git:www-data /var/log/aphlict.log && \
     npm install -g ws && \
