@@ -24,6 +24,12 @@ trap "postfix reload" SIGHUP
 # force new copy of hosts there (otherwise links could be outdated)
 cp /etc/hosts /var/spool/postfix/etc/hosts
 
+FILES="localtime services resolv.conf hosts nsswitch.conf"
+for file in $FILES; do
+    cp /etc/${file} /var/spool/postfix/etc/${file}
+    chmod a+rX /var/spool/postfix/etc/${file}
+done
+
 postconf -e mydestination="`hostname`, localhost.localdomain, localhost"
 postconf -e myhostname=`hostname`
 
