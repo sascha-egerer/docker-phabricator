@@ -14,7 +14,7 @@ trap "${PHABRICATOR_DIR}/bin/aphlict stop" SIGTERM
 trap "${PHABRICATOR_DIR}/bin/aphlict reload" SIGHUP
 
 # start aphlict
-${PHABRICATOR_DIR}/bin/aphlict start --client-host=localhost
+${PHABRICATOR_DIR}/bin/aphlict start
 
 # lets give aphlict some time to start
 sleep 1
