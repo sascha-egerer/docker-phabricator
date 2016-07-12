@@ -1,4 +1,4 @@
-FROM php:7.0-fpm
+FROM php:5-fpm
 MAINTAINER Sascha Egerer <s.egerer@syzygy.de>
 
 EXPOSE 22 80 443 843 22280
