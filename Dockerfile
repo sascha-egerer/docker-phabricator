@@ -42,6 +42,4 @@ RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr --with-
     git clone git://github.com/facebook/libphutil.git && \
     git clone git://github.com/facebook/arcanist.git && \
     git clone git://github.com/facebook/phabricator.git && \
-    git clone git://github.com/PHPOffice/PHPExcel.git && \
-    echo '' >> /etc/php5/fpm/php-fpm.conf && \
-    echo 'php_value[include_path] = "/opt/phabricator/PHPExcel/Classes"' >> /etc/php5/fpm/php-fpm.conf
+    git clone git://github.com/PHPOffice/PHPExcel.git
