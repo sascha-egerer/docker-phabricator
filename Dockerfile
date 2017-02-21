@@ -34,7 +34,7 @@ RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr --with-
     chown git:root /etc/ssh/phabricator-ssh-hook.sh && \
     echo "git ALL=(git) SETENV: NOPASSWD: /usr/bin/git-upload-pack, /usr/bin/git-receive-pack, /usr/bin/svnserve" >> /etc/sudoers && \
     cd /opt/phabricator && \
-    git clone git://github.com/facebook/libphutil.git && \
-    git clone git://github.com/facebook/arcanist.git && \
-    git clone git://github.com/facebook/phabricator.git && \
+    git clone -b stable git://github.com/facebook/libphutil.git && \
+    git clone -b stable git://github.com/facebook/arcanist.git && \
+    git clone -b stable git://github.com/facebook/phabricator.git && \
     git clone git://github.com/PHPOffice/PHPExcel.git
