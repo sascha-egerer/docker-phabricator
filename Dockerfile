@@ -1,4 +1,4 @@
-FROM php:5-fpm
+FROM php:7-fpm-alpine
 MAINTAINER Sascha Egerer <s.egerer@syzygy.de>
 
 EXPOSE 22 80 443 843 22280
@@ -10,11 +10,7 @@ ENV SOURCE_DIR=/opt/phabricator
 ENV PHABRICATOR_DIR="$SOURCE_DIR/phabricator"
 
 # Install PHP extensions
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get upgrade -y && \
-    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends -y nginx git subversion curl imagemagick supervisor nodejs cron python-pygments sudo mariadb-client postfix libfreetype6-dev libxml2-dev libpng-dev libjpeg-dev libcurl4-gnutls-dev openssh-server npm && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apk --no-cache add --update nginx libcurl curl-dev git subversion curl imagemagick supervisor nodejs py-pygments sudo mariadb-client postfix freetype freetype-dev libxml2 libpng-dev libjpeg-turbo-dev curl openssh 
 
 COPY Files/Scripts /Scripts
 COPY Files/custom.php.ini /usr/local/etc/php/conf.d/z_phabricator-custom.ini
@@ -27,17 +23,16 @@ COPY Files/supervisor.conf.d/* /etc/supervisor/conf.d/
 
 RUN docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr --with-freetype-dir=/usr && \
     docker-php-ext-install gd mysqli mbstring iconv curl pcntl fileinfo json posix ctype zip sockets opcache && \
-    useradd -G www-data -s /bin/bash -d /opt/phabricator git && \
-    passwd -d git && \
+    mkdir -p /opt/phabricator && \
+    adduser -D -G www-data -s /bin/bash -h /opt/phabricator git && \
     touch /var/log/aphlict.log && \
     chown git:www-data /var/log/aphlict.log && \
     npm install -g ws && \
     mkdir /var/run/sshd && \
     chmod +x /Scripts/*.sh && \
     chmod 550 /etc/ssh/phabricator-ssh-hook.sh && \
-    chown root:git /etc/ssh/phabricator-ssh-hook.sh && \
+    chown git:root /etc/ssh/phabricator-ssh-hook.sh && \
     echo "git ALL=(git) SETENV: NOPASSWD: /usr/bin/git-upload-pack, /usr/bin/git-receive-pack, /usr/bin/svnserve" >> /etc/sudoers && \
-    mkdir /opt/phabricator && \
     cd /opt/phabricator && \
     git clone git://github.com/facebook/libphutil.git && \
     git clone git://github.com/facebook/arcanist.git && \
