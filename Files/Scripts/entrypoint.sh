@@ -2,10 +2,6 @@
 
 set -e
 
-echo "Copy ws module from global install"
-cp -R /usr/local/lib/node_modules ${PHABRICATOR_DIR}/support/aphlict/server/
-chown -R git:www-data ${PHABRICATOR_DIR}/support/aphlict/server/node_modules
-
 if [ -e /config/script.pre ]; then
     echo "Applying pre-configuration script..."
     /config/script.pre
