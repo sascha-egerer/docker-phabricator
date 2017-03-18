@@ -43,6 +43,6 @@ RUN mkdir -p /opt/phabricator && \
     git clone -b stable git://github.com/facebook/arcanist.git && \
     git clone -b stable git://github.com/facebook/phabricator.git && \
     git clone git://github.com/PHPOffice/PHPExcel.git && \
-    npm install -g --prefix ${PHABRICATOR_DIR}/support/aphlict/server/ ws@1.1.4 && \
+    npm install --prefix ${PHABRICATOR_DIR}/support/aphlict/server/ ws@1.1.4 && \
     chown -R git:www-data ${PHABRICATOR_DIR}/support/aphlict/server/node_modules
 
