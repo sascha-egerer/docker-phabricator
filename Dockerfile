@@ -33,7 +33,6 @@ RUN mkdir -p /opt/phabricator && \
     passwd -d git && \
     touch /var/log/aphlict.log && \
     chown git:www-data /var/log/aphlict.log && \
-    npm install -g ws@1.1.4 && \
     mkdir /var/run/sshd && \
     chmod +x /Scripts/*.sh && \
     chmod 550 /etc/ssh/phabricator-ssh-hook.sh && \
@@ -44,6 +43,6 @@ RUN mkdir -p /opt/phabricator && \
     git clone -b stable git://github.com/facebook/arcanist.git && \
     git clone -b stable git://github.com/facebook/phabricator.git && \
     git clone git://github.com/PHPOffice/PHPExcel.git && \
-    cp -R /usr/lib/node_modules ${PHABRICATOR_DIR}/support/aphlict/server/  && \
+    npm install -g --prefix ${PHABRICATOR_DIR}/support/aphlict/server/ ws@1.1.4 && \
     chown -R git:www-data ${PHABRICATOR_DIR}/support/aphlict/server/node_modules
 
