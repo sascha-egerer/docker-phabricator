@@ -30,8 +30,12 @@ for file in $FILES; do
     chmod a+rX /var/spool/postfix/etc/${file}
 done
 
-postconf -e mydestination="`hostname`, localhost.localdomain, localhost"
-postconf -e myhostname=`hostname`
+if [[ -z ${MYHOSTNAME} ]]; then
+    MYHOSTNAME=`hostname`
+fi
+
+postconf -e mydestination="${MYHOSTNAME}, localhost.localdomain, localhost"
+postconf -e myhostname=${MYHOSTNAME}
 
 # start postfix
 postfix start
