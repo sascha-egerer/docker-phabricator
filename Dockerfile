@@ -28,11 +28,12 @@ COPY Files/phabricator-ssh-hook.sh /etc/ssh/phabricator-ssh-hook.sh
 COPY Files/supervisor.conf /etc/supervisor/supervisord.conf
 COPY Files/supervisor.conf.d/* /etc/supervisor/conf.d/
 
-RUN mkdir -p /opt/phabricator && \
+RUN mkdir -p /opt/phabricator /var/drydock/ && \
     useradd -G www-data -s /bin/bash -d /opt/phabricator git && \
     passwd -d git && \
     touch /var/log/aphlict.log && \
     chown git:www-data /var/log/aphlict.log && \
+    chown git:git /var/drydock/ && \
     mkdir /var/run/sshd && \
     chmod +x /Scripts/*.sh && \
     chmod 550 /etc/ssh/phabricator-ssh-hook.sh && \
